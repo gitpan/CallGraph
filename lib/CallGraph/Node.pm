@@ -1,6 +1,6 @@
 package CallGraph::Node;
 
-$VERSION = '0.50';
+$VERSION = '0.55';
 
 use strict;
 use warnings;
@@ -147,6 +147,10 @@ sub dump {
 1;
 
 =back
+
+=head1 VERSION
+
+0.55
 
 =head1 SEE ALSO
 

@@ -1,6 +1,6 @@
 package CallGraph;
 
-$VERSION = '0.50';
+$VERSION = '0.55';
 
 use strict;
 use warnings;
@@ -153,6 +153,18 @@ sub get_sub {
     $self->{'index'}{$name};
 }
 
+=item my @subs = $graph->subs
+
+Returns the list of all the subroutines contained in the graph, as
+L<CallGraph::Node> objects.
+
+=cut
+
+sub subs {
+    my ($self) = @_;
+    @{$self->{'index'}}{sort keys %{$self->{'index'}}};
+}
+
 =item my $root = $graph->root;
 
 =item $graph->root($new_root);
@@ -215,6 +227,10 @@ sub dump {
 1;
 
 =back
+
+=head1 VERSION
+
+0.55
 
 =head1 SEE ALSO
 

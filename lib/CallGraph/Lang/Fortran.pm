@@ -1,6 +1,6 @@
 package CallGraph::Lang::Fortran;
 
-$VERSION = '0.50';
+$VERSION = '0.55';
 
 use strict;
 use warnings;
@@ -97,6 +97,10 @@ sub parse {
 
 The parser is simplistic, so it might not handle every edge case (such as funny
 use of whitespace and continuation lines) properly.
+
+=head1 VERSION
+
+0.55
 
 =head1 SEE ALSO
 

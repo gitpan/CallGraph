@@ -1,14 +1,28 @@
 #!/home/ivan/bin/perl -s
 
+$VERSION = '0.55';
+
 use strict;
 use warnings;
 use CallGraph::Lang::Fortran;
 
-our $indent = 8 unless defined $indent;
-our $dups   = 0 unless defined $dups;
+our $indent  = 8 unless defined $indent;
+our $dups    = 0 unless defined $dups;
+our $type    = 'tree' unless defined $type;
 
 my $graph = CallGraph::Lang::Fortran->new(files => [@ARGV]);
-print $graph->dump(indent => $indent, dups => $dups);
+
+if ($type eq 'reverse') {
+    for my $sub ($graph->subs) {
+        printf "%s:\t %s\n", $sub->name, join(", ", map {$_->name} $sub->callers);
+    }
+} elsif ($type eq 'forward') {
+    for my $sub ($graph->subs) {
+        printf "%s:\t %s\n", $sub->name, join(", ", map {$_->name} $sub->calls);
+    }
+} else {
+    print $graph->dump(indent => $indent, dups => $dups);
+}
 
 __END__
 
@@ -18,7 +32,7 @@ pflow - command line utility for printing the call graph of a fortran program
 
 =head1 SYNOPSIS
 
-    pflow [-indent=8] [-dups] *.f
+    pflow [-indent=8] [-dups=0] [-type=tree] *.f
 
 =head1 DESCRIPTION
 
@@ -71,7 +85,34 @@ If true, duplicate a branch that has already been called. If false,
 place a level pointing to the first place where the branch was defined.
 The default is false.
 
+=item type
+
+Specify which type of dump should be used. There are several options:
+
+=over
+
+=item tree
+
+The default; print a call tree (like the examples shown in the DESCRIPTION
+section.
+
+=item forward
+
+Print one subroutine per line, followed by the list of all the subroutines that
+it calls.
+
+=item reverse
+
+Print one subroutines per line, followed by the list of all the subroutines
+that call it.
+
 =back
+
+=back
+
+=head1 VERSION
+
+0.55
 
 =head1 SEE ALSO
 

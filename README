@@ -1,4 +1,4 @@
-CallGraph version 0.50
+CallGraph version 0.55
 ======================
 
 This module creates a "call graph" for a program. Please note that you need
